@@ -6,4 +6,4 @@ run_list 'recipe[apt]',
           'recipe[openssl]',
           'recipe[git]',
           'recipe[nodejs]',
-          'recipe[npm]'
+          'recipe[nodejs::npm]'
