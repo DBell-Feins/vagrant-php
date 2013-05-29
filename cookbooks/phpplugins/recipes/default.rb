@@ -88,15 +88,34 @@ script "install_phpmyadmin" do
   code <<-EOH
   rm -rf /tmp/phpMyAdmin*
 
-  wget http://downloads.sourceforge.net/project/phpmyadmin/phpMyAdmin/3.5.7/phpMyAdmin-3.5.7-english.tar.gz
-  tar -xzvf phpMyAdmin-3.5.7-english.tar.gz
+  wget http://downloads.sourceforge.net/project/phpmyadmin/phpMyAdmin/4.0.2/phpMyAdmin-4.0.2-english.tar.gz
+  tar -xzvf phpMyAdmin-4.0.2-english.tar.gz
 
   mkdir -p /var/www/phpmyadmin
-  cp -R /tmp/phpMyAdmin-3.5.7-english/* /var/www/phpmyadmin/
-
+  cp -R /tmp/phpMyAdmin-4.0.2-english/* /var/www/phpmyadmin/
+  mysql --user=root --password=#{node['mysql']['server_root_password']} < /var/www/phpmyadmin/examples/create_tables.sql
   EOH
   not_if "test -f /var/www/phpmyadmin"
 end
+
+mysql_database_user "pma" do
+  connection ({ :host => "localhost", :username => "root", :password => node['mysql']['server_root_password'] })
+  password "pmapass"
+  database_name "phpmyadmin"
+  privileges [:all]
+  action :grant
+end
+
+template "/var/www/phpmyadmin/config.inc.php" do
+  source "config.inc.php.erb"
+  owner "root"
+  group "root"
+  mode 0644
+  variables({
+    :cypher => node['phpplugins']['cypher']
+    })
+end
+
 
 # sqlbuddy
 script "install_sqlbuddy" do
