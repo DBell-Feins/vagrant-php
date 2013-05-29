@@ -22,12 +22,15 @@
 [submodule "cookbooks/xml"]
 	path = cookbooks/xml
 	url = https://github.com/opscode-cookbooks/xml.git
-[submodule "cookbooks/lesscss"]
-	path = cookbooks/lesscss
-	url = https://github.com/geoffreytran/chef-lesscss.git
 [submodule "cookbooks/uglifyjs"]
 	path = cookbooks/uglifyjs
 	url = https://github.com/DBell-Feins/chef-uglifyjs.git
+[submodule "cookbooks/lesscss"]
+	path = cookbooks/lesscss
+	url = https://github.com/DBell-Feins/chef-lesscss.git
 [submodule "cookbooks/git"]
 	path = cookbooks/git
 	url = https://github.com/opscode-cookbooks/git.git
+[submodule "cookbooks/database"]
+	path = cookbooks/database
+	url = https://github.com/opscode-cookbooks/database.git
