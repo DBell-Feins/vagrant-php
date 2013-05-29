@@ -6,6 +6,9 @@
 require 'rbconfig'
 IS_WINDOWS = (RbConfig::CONFIG['host_os'] =~ /mswin|mingw|cygwin/) ? true : false
 
+require 'securerandom'
+blowfish_key = SecureRandom.hex(15)
+
 Vagrant.configure("2") do |config|
   # Box
   config.vm.box = "precise32"
@@ -51,7 +54,7 @@ Vagrant.configure("2") do |config|
           :server_repl_password => 'root'
         },
         :phpplugins => {
-          :cypher => 'xV66(E1Ra+|]E3}_MKULXBh+mSP%6v8w[d6z6G[f'
+          :cypher => blowfish_key
         },
         :nodejs => {
           :version => '0.10.8',
